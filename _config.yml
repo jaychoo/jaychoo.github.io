@@ -1,0 +1,24 @@
+title: Jay Choo
+description: Software engineer — portfolio and resume
+url: "https://jaychoo.github.io"
+
+theme: minima
+minima:
+  skin: dark
+  social_links:
+    - platform: github
+      user_url: "https://github.com/jaychoo"
+
+header_pages:
+  - about.md
+  - projects.md
+
+plugins:
+  - jekyll-feed
+
+markdown: kramdown
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
