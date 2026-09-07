@@ -1,0 +1,16 @@
+<!-- start custom head snippets -->
+
+<!-- Apply saved/system color theme before first paint to avoid a flash -->
+<script>
+  (function () {
+    var stored = localStorage.getItem('theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+    if (theme === 'dark') {
+      var link = document.querySelector('link[rel="stylesheet"][href*="/assets/css/main.css"]');
+      if (link) link.setAttribute('href', link.getAttribute('href').replace('main.css', 'dark.css'));
+    }
+  })();
+</script>
+
+<!-- end custom head snippets -->

@@ -1,0 +1,63 @@
+/* ==========================================================================
+   Custom overrides — bold hero + blog-style post list + theme toggle
+   Inspired by: https://dribbble.com/shots/13733111 (DevBlog by Tony Lea)
+   ========================================================================== */
+
+.hero {
+  padding: 3em 0 2em;
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 0.5em;
+  }
+
+  p {
+    font-size: 1.15rem;
+    max-width: 40em;
+    opacity: 0.85;
+  }
+}
+
+.post-list {
+  margin-top: 1em;
+  border-top: 1px solid rgba(128, 128, 128, 0.25);
+
+  &__item {
+    padding: 1.5em 0;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+
+    h2 {
+      margin-bottom: 0.25em;
+      font-size: 1.3rem;
+    }
+  }
+
+  &__date {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+    opacity: 0.6;
+    margin-bottom: 0.5em;
+  }
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  width: 2.25em;
+  height: 2.25em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: inherit;
+  margin-left: 0.75em;
+  padding: 0;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}

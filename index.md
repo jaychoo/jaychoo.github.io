@@ -1,22 +1,22 @@
 ---
-layout: default
-title: Home
+permalink: /
+author_profile: false
 ---
 
-# Hi, I'm Jay Choo 👋
+<div class="hero" markdown="0">
+  <h1>Hello, my name is Jay Choo.<br>Welcome to my site.</h1>
+  <p>See <a href="/projects/">Projects</a> for what I've been building, or
+  <a href="/about/">About</a> for more background.</p>
+</div>
 
-Short intro goes here — who you are, what you work on, and what you're
-looking for (e.g. roles, collaborations). A sentence or two is plenty.
-
-## Featured Projects
-
-- **Project One** — one-line description. [Repo](#) · [Demo](#)
-- **Project Two** — one-line description. [Repo](#) · [Demo](#)
-
-See the full [Projects](/projects/) page for more.
-
-## Elsewhere
-
-- [GitHub](https://github.com/jaychoo)
-- [LinkedIn](#)
-- Email: jaychoo@gmail.com
+{% if site.posts.size > 0 %}
+<div class="post-list">
+  {% for post in site.posts %}
+    <article class="post-list__item">
+      <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+      <p class="post-list__date">{{ post.date | date: "%B %-d, %Y" }}</p>
+      <p>{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+    </article>
+  {% endfor %}
+</div>
+{% endif %}
