@@ -1,0 +1,26 @@
+{
+  "name": "jaychoo.github.io",
+  "version": "1.0.0",
+  "description": "Personal portfolio site — plain HTML/CSS/JS styled with Tailwind CSS, hosted on GitHub Pages.",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./assets/css/style.css --minify",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./assets/css/style.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaychoo/jaychoo.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jaychoo/jaychoo.github.io/issues"
+  },
+  "homepage": "https://github.com/jaychoo/jaychoo.github.io#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}
