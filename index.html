@@ -15,10 +15,20 @@
       --ink:#17181c;
       --ink-soft:#3a3b3d;
       --rule:#dbd8cf;
-      --muted:#797668;
+      --muted:#6a675a;
       --signal:#1f6f68;
       --signal-ink:#0d4d47;
       --focus:#1f6f68;
+      /* solid teal block; stays dark in both modes so light text keeps contrast */
+      --block:#1f6f68;
+      --block-hover:#0d4d47;
+      --on-block:#f7f6f2;
+      /* inverted "deep" panel */
+      --deep:#17181c;
+      --deep-ink:#ece9e1;
+      --deep-soft:#c7c4ba;
+      --deep-muted:#8f8c7f;
+      --deep-rule:#3d3e3a;
     }
     @media (prefers-color-scheme: dark){
       :root{
@@ -31,6 +41,9 @@
         --signal:#57d6c6;
         --signal-ink:#57d6c6;
         --focus:#57d6c6;
+        --block-hover:#185a54;
+        --deep:#1f201d;
+        --deep-rule:#3a3b37;
       }
     }
 
@@ -52,22 +65,28 @@
       outline-offset:3px;
     }
 
+    .mono{ font-family:'JetBrains Mono', monospace; }
+
     .wrap{
-      max-width:700px;
+      max-width:1440px;
       margin:0 auto;
-      padding:0 24px;
+      padding:0 40px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(12, minmax(0, 1fr));
+      column-gap:24px;
     }
 
-    /* ---- nav ---- */
-    header{
-      border-bottom:1px solid var(--rule);
-    }
+    /* ---- header ---- */
+    header{ border-bottom:1px solid var(--rule); }
     .navrow{
-      display:flex;
+      display:grid;
+      grid-template-columns:1fr auto 1fr;
       align-items:center;
-      justify-content:space-between;
-      padding:22px 0;
       gap:16px;
+      padding-top:16px;
+      padding-bottom:16px;
     }
     .wordmark{
       font-family:'JetBrains Mono', monospace;
@@ -77,202 +96,278 @@
       text-decoration:none;
     }
     .wordmark .dim{ color:var(--muted); font-weight:500; }
-    nav.links{
-      display:flex;
-      gap:22px;
-      font-family:'JetBrains Mono', monospace;
-      font-size:13px;
-    }
-    nav.links a{
-      text-decoration:none;
-      color:var(--ink-soft);
-      border-bottom:1px solid transparent;
-      padding-bottom:2px;
-      transition:border-color .15s ease, color .15s ease;
-    }
-    nav.links a:hover{
-      color:var(--ink);
-      border-color:var(--signal);
-    }
-
-    /* ---- hero ---- */
-    .hero{
-      padding:64px 0 56px;
-    }
-    .eyebrow{
-      font-family:'JetBrains Mono', monospace;
-      font-size:13.5px;
-      letter-spacing:0.12em;
-      text-transform:uppercase;
-      color:var(--muted);
-      margin:0 0 28px;
-    }
-    .eyebrow .signal{ color:var(--signal-ink); }
-
-    pre.sig{
-      font-family:'JetBrains Mono', monospace;
-      font-size:14.5px;
-      line-height:1.7;
-      margin:0 0 36px;
-      padding:20px 22px;
-      background:var(--paper-raised);
-      border:1px solid var(--rule);
-      border-radius:3px;
-      overflow-x:auto;
-      color:var(--ink-soft);
-    }
-    pre.sig .kw{ color:var(--signal-ink); }
-    pre.sig .str{ color:var(--ink); }
-
-    h1.thesis{
-      font-family:'Archivo', sans-serif;
-      font-weight:800;
-      font-size:clamp(34px, 5.4vw, 52px);
-      line-height:1.14;
-      letter-spacing:-0.015em;
-      margin:0 0 24px;
-      text-wrap:balance;
-      max-width:17ch;
-    }
-    p.lede{
-      font-size:clamp(19px, 2vw, 21px);
-      color:var(--ink-soft);
-      max-width:56ch;
-      margin:0 0 32px;
-    }
-
-    .cta-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:24px;
-      font-family:'JetBrains Mono', monospace;
-      font-size:13.5px;
-    }
-    .cta-row a{
-      text-decoration:none;
-      color:var(--ink);
-      border-bottom:1px solid var(--rule);
-      padding-bottom:2px;
-    }
-    .cta-row a:hover{ border-color:var(--signal); color:var(--signal-ink); }
-    .cta-row a .arrow{ color:var(--signal); margin-right:2px; }
-
-    /* ---- section dividers ---- */
-    section.block{
-      padding:52px 0;
-      border-top:1px solid var(--rule);
-    }
-    .label{
-      display:flex;
-      align-items:baseline;
-      gap:10px;
-      margin:0 0 26px;
+    .status{
       font-family:'JetBrains Mono', monospace;
       font-size:12.5px;
       letter-spacing:0.1em;
       text-transform:uppercase;
       color:var(--muted);
     }
-    .label .idx{ color:var(--signal-ink); }
-    .label::after{
-      content:"";
-      flex:1;
-      height:1px;
-      background:var(--rule);
-    }
-
-    h2.h{
-      font-family:'Archivo', sans-serif;
-      font-weight:700;
-      font-size:22px;
-      letter-spacing:-0.01em;
-      margin:0 0 14px;
-    }
-    p.body-text{
-      margin:0 0 16px;
-      max-width:62ch;
-      color:var(--ink-soft);
-    }
-    p.body-text:last-child{ margin-bottom:0; }
-
-    .skills{
-      margin-top:22px;
-      font-family:'JetBrains Mono', monospace;
-      font-size:13.5px;
-      color:var(--ink-soft);
+    .status .dot{ color:var(--signal); }
+    nav.links{
+      justify-self:end;
       display:flex;
-      flex-wrap:wrap;
-      gap:0 10px;
-    }
-    .skills span:not(:last-child)::after{
-      content:"·";
-      color:var(--rule);
-      margin-left:10px;
+      gap:8px;
     }
 
-    /* ---- work list ---- */
-    .proj{
-      padding:26px 0;
-      border-top:1px solid var(--rule);
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:6px 18px;
-      align-items:baseline;
+    /* ---- pills ---- */
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      min-height:44px;
+      padding:0 18px;
+      border-radius:999px;
+      font-family:'JetBrains Mono', monospace;
+      font-size:13px;
+      text-decoration:none;
+      background:var(--paper-raised);
+      transition:background-color .15s ease, color .15s ease, border-color .15s ease;
     }
-    .proj:first-of-type{ border-top:none; padding-top:0; }
-    .proj-name{
+    .pill:hover{ background:var(--rule); }
+    .pill.solid{ background:var(--ink); color:var(--paper); }
+    .pill.solid:hover{ background:var(--signal-ink); }
+    .pill.outline{ background:none; border:1px solid var(--ink); }
+    .pill.outline:hover{ border-color:var(--signal); color:var(--signal-ink); }
+
+    /* ---- block CTAs ---- */
+    .blocks{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:16px;
+    }
+    .block-cta{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      min-height:72px;
+      padding:0 24px;
+      border-radius:6px;
+      font-family:'JetBrains Mono', monospace;
+      font-size:14px;
+      text-decoration:none;
+      background:var(--ink);
+      color:var(--paper);
+      transition:background-color .15s ease;
+    }
+    .block-cta:hover{ background:var(--ink-soft); }
+    .block-cta.teal{ background:var(--block); color:var(--on-block); }
+    .block-cta.teal:hover{ background:var(--block-hover); }
+
+    /* ---- display type ---- */
+    .display{
+      margin:0;
+      font-family:'Archivo', sans-serif;
+      font-weight:800;
+      line-height:0.9;
+      letter-spacing:-0.035em;
+    }
+    h2.h{
+      margin:0;
       font-family:'Archivo', sans-serif;
       font-weight:700;
-      font-size:17px;
+      font-size:clamp(32px, 3.4vw, 44px);
+      line-height:1.05;
+      letter-spacing:-0.02em;
     }
-    .proj-meta{
+    .code-label{
       font-family:'JetBrains Mono', monospace;
-      font-size:12px;
+      font-size:13px;
       color:var(--muted);
-      text-align:right;
-      white-space:nowrap;
+    }
+
+    /* ---- hero ---- */
+    .hero{
+      padding-top:56px;
+      padding-bottom:40px;
+      row-gap:48px;
+    }
+    .hero .display{
+      grid-column:1 / 8;
+      font-size:clamp(56px, 8.4vw, 120px);
+    }
+    .hero-side{
+      grid-column:8 / 13;
+      align-self:end;
+      display:flex;
+      flex-direction:column;
+      gap:28px;
+    }
+    pre.sig{
+      margin:0;
+      font-family:'JetBrains Mono', monospace;
+      font-size:14px;
+      line-height:1.7;
+      padding:20px 22px;
+      background:var(--paper-raised);
+      border-radius:6px;
+      overflow-x:auto;
+      color:var(--ink-soft);
+    }
+    pre.sig .kw{ color:var(--signal-ink); }
+    pre.sig .str{ color:var(--ink); }
+    p.lede{
+      margin:0;
+      font-size:clamp(19px, 1.6vw, 21px);
+      line-height:1.6;
+      color:var(--ink-soft);
+    }
+    .hero .blocks{ grid-column:1 / 13; }
+
+    /* ---- stats ---- */
+    .stats{
+      padding:28px 0;
+      border-top:1px solid var(--rule);
+      border-bottom:1px solid var(--rule);
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:24px;
+      font-family:'JetBrains Mono', monospace;
       font-variant-numeric:tabular-nums;
     }
-    .proj-desc{
-      grid-column:1 / -1;
-      color:var(--ink-soft);
-      font-size:15.5px;
-      max-width:60ch;
+    .stat{ display:flex; gap:14px; align-items:baseline; }
+    .stat b{ font-size:28px; font-weight:500; }
+    .stat span{ font-size:13px; color:var(--muted); }
+
+    /* ---- panels ---- */
+    .panel{
+      padding:64px 56px;
+      border-radius:8px;
+      row-gap:32px;
     }
+    .panel.deep{ background:var(--deep); color:var(--deep-ink); }
+    .panel.raised{ background:var(--paper-raised); row-gap:40px; }
+
+    #about{ margin-top:64px; }
+    .panel-head{
+      grid-column:1 / 13;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px 48px;
+      padding-bottom:20px;
+      border-bottom:1px solid var(--deep-rule);
+      font-family:'JetBrains Mono', monospace;
+      font-size:13px;
+      color:var(--deep-muted);
+    }
+    .panel .h{ grid-column:1 / 6; }
+    .panel-body{
+      grid-column:7 / 13;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+    .panel-body p{ margin:0; font-size:18px; line-height:1.65; color:var(--deep-soft); }
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+      padding:0;
+      list-style:none;
+      font-family:'JetBrains Mono', monospace;
+      font-size:12.5px;
+    }
+    .tags li{ padding:7px 14px; border:1px solid var(--deep-rule); border-radius:999px; }
+
+    /* ---- work ---- */
+    #work{ padding-top:96px; }
+    #work > .h{ grid-column:1 / 6; }
+    .section-intro{
+      grid-column:7 / 13;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:18px;
+    }
+    .section-intro p{ margin:0; font-size:18px; line-height:1.6; color:var(--ink-soft); }
+    .roles{
+      grid-column:1 / 13;
+      margin:48px 0 0;
+      padding:0;
+      list-style:none;
+      border-top:1px solid var(--ink);
+    }
+    .role{
+      display:grid;
+      grid-template-columns:120px 280px minmax(0, 1fr) 260px;
+      gap:6px 24px;
+      align-items:baseline;
+      padding:26px 0;
+      border-bottom:1px solid var(--rule);
+    }
+    .role-name{
+      font-family:'Archivo', sans-serif;
+      font-weight:700;
+      font-size:24px;
+      letter-spacing:-0.01em;
+    }
+    .role-desc{ margin:0; font-size:16.5px; line-height:1.55; color:var(--ink-soft); }
+    .role-meta{
+      justify-self:end;
+      font-family:'JetBrains Mono', monospace;
+      font-size:12.5px;
+      color:var(--muted);
+      font-variant-numeric:tabular-nums;
+      white-space:nowrap;
+    }
+
+    /* ---- contact ---- */
+    #contact{ margin-top:96px; }
+    #contact .code-label{ grid-column:1 / 13; }
+    #contact .display{ grid-column:1 / 8; font-size:clamp(56px, 6.7vw, 96px); }
+    #contact p{
+      grid-column:8 / 13;
+      align-self:end;
+      margin:0;
+      font-size:18px;
+      line-height:1.6;
+      color:var(--ink-soft);
+    }
+    #contact .blocks{ grid-column:1 / 13; }
 
     /* ---- footer ---- */
     footer{
+      margin-top:64px;
       border-top:1px solid var(--rule);
-      padding:40px 0 64px;
     }
     .foot-row{
       display:flex;
       justify-content:space-between;
-      align-items:flex-end;
-      gap:16px;
+      align-items:baseline;
       flex-wrap:wrap;
+      gap:12px 24px;
+      padding-top:28px;
+      padding-bottom:28px;
     }
-    .foot-links{
-      font-family:'JetBrains Mono', monospace;
-      font-size:13px;
-    }
-    .foot-links a{ text-decoration:none; color:var(--ink-soft); }
-    .foot-links a:hover{ color:var(--signal-ink); }
-    .foot-links span.sep{ color:var(--rule); margin:0 8px; }
-    .foot-note{
-      font-family:'Source Serif 4', serif;
-      font-style:italic;
-      color:var(--muted);
-      font-size:14px;
+    .foot-row .code-label{ font-size:12.5px; }
+    .foot-note{ margin:0; font-style:italic; font-size:14px; color:var(--muted); }
+
+    @media (max-width:960px){
+      .status{ display:none; }
+      .navrow{ grid-template-columns:auto 1fr; }
+      .hero .display, .hero-side,
+      .panel .h, .panel-body,
+      #work > .h, .section-intro,
+      #contact .display, #contact p{ grid-column:1 / 13; }
+      .grid{ row-gap:24px; }
+      .stats{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+      .role{ grid-template-columns:90px minmax(0, 1fr) auto; }
+      .role-desc{ grid-column:2 / -1; grid-row:2; }
     }
 
     @media (max-width:560px){
       .wrap{ padding:0 18px; }
-      .hero{ padding:44px 0 40px; }
-      section.block{ padding:40px 0; }
-      .proj{ grid-template-columns:1fr; }
-      .proj-meta{ text-align:left; }
-      .foot-row{ flex-direction:column; align-items:flex-start; }
+      .navrow{ grid-template-columns:1fr; justify-items:start; }
+      nav.links{ justify-self:start; }
+      .hero{ padding-top:40px; }
+      .blocks{ grid-template-columns:1fr; }
+      .panel{ padding:40px 24px; }
+      #work{ padding-top:64px; }
+      #contact{ margin-top:64px; }
+      .role{ grid-template-columns:1fr; }
+      .role-desc{ grid-column:auto; grid-row:auto; }
+      .role-meta{ justify-self:start; }
+      .foot-row{ flex-direction:column; }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -285,115 +380,130 @@
 <header>
   <div class="wrap navrow">
     <a class="wordmark" href="#top">jay<span class="dim">.</span>choo</a>
+    <p class="status" style="margin:0;"><span class="dot" aria-hidden="true">●</span> open to interesting problems</p>
     <nav class="links" aria-label="Primary">
-      <a href="#about">about</a>
-      <a href="#work">work</a>
-      <a href="#contact">contact</a>
+      <a class="pill" href="#about">about</a>
+      <a class="pill" href="#work">work</a>
+      <a class="pill solid" href="#contact">contact</a>
     </nav>
   </div>
 </header>
 
 <main id="top">
-  <div class="wrap hero">
-    <p class="eyebrow">software engineer <span class="signal">/</span> brooklyn, ny</p>
-
-    <pre class="sig"><span class="kw">interface</span> Jay {
+  <section class="wrap grid hero">
+    <h1 class="display">I write<br>software<br>that stays<br>boring.</h1>
+    <div class="hero-side">
+      <pre class="sig"><span class="kw">interface</span> Jay {
   role: <span class="str">"Software Engineer"</span>
   focus: <span class="str">"backend"</span> | <span class="str">"developer tools"</span> | <span class="str">"apis"</span>
-  status: <span class="str">"open to interesting problems"</span>
+  city: <span class="str">"Brooklyn, NY"</span>
 }</pre>
+      <p class="lede">
+        Predictable systems, typed interfaces, and code that reads the same
+        six months later as it did the day it shipped.
+      </p>
+    </div>
+    <div class="blocks">
+      <a class="block-cta" href="#work"><span>View work</span><span aria-hidden="true">→</span></a>
+      <a class="block-cta teal" href="#contact"><span>Say hello</span><span aria-hidden="true">→</span></a>
+    </div>
+  </section>
 
-    <h1 class="thesis">I write software that stays boring under pressure.</h1>
-    <p class="lede">
-      Predictable systems, typed interfaces, and code that reads the same
-      six months later as it did the day it shipped.
-    </p>
-
-    <div class="cta-row">
-      <a href="#work"><span class="arrow">→</span>view work</a>
-      <a href="#about"><span class="arrow">→</span>read the background</a>
-      <a href="#contact"><span class="arrow">→</span>say hello</a>
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b>0013</b><span>/ years shipping</span></div>
+      <div class="stat"><b>0005</b><span>/ companies</span></div>
+      <div class="stat"><b>0003</b><span>/ focus areas</span></div>
+      <div class="stat"><b>0001</b><span>/ city: brooklyn</span></div>
     </div>
   </div>
 
-  <section class="block" id="about">
-    <div class="wrap">
-      <p class="label"><span class="idx">01</span> about</p>
-      <h2 class="h">Background</h2>
-      <p class="body-text">
-        Brooklyn-based software engineer with over a decade building backend
-        systems and data infrastructure, from early-stage startups to
-        consumer products at scale. Currently Principal Software Engineer
-        at Ollie, following senior engineering roles at ARTA Shipping and
-        ClassPass.
-      </p>
-      <p class="body-text">
-        Mostly Python: service backends, ETL pipelines, and the AWS and
-        Linux infrastructure underneath them, built with the same Agile/
-        Scrum teams that have to live with the code after it ships.
-      </p>
-      <h2 class="h" style="margin-top:34px;">Skills</h2>
-      <div class="skills">
-        <span>Python</span><span>Django</span><span>Celery / RabbitMQ</span>
-        <span>REST APIs</span><span>ETL &amp; data pipelines</span>
-        <span>AWS</span><span>Linux administration</span><span>Scrum</span>
+  <div class="wrap">
+    <section class="grid panel deep" id="about">
+      <div class="panel-head"><span>A001 /&nbsp; about</span><span>Principal Software Engineer, Ollie</span></div>
+      <h2 class="h">Boring under pressure, on purpose.</h2>
+      <div class="panel-body">
+        <p>
+          Brooklyn-based software engineer with over a decade building backend
+          systems and data infrastructure, from early-stage startups to
+          consumer products at scale. Currently Principal Software Engineer
+          at Ollie, following senior engineering roles at ARTA Shipping and
+          ClassPass.
+        </p>
+        <p>
+          Mostly Python: service backends, ETL pipelines, and the AWS and
+          Linux infrastructure underneath them, built with the same Agile/
+          Scrum teams that have to live with the code after it ships.
+        </p>
+        <ul class="tags" aria-label="Skills">
+          <li>Python</li><li>Django</li><li>Celery / RabbitMQ</li>
+          <li>REST APIs</li><li>ETL &amp; data pipelines</li>
+          <li>AWS</li><li>Linux administration</li><li>Scrum</li>
+        </ul>
       </div>
+    </section>
+  </div>
+
+  <section class="wrap grid" id="work">
+    <h2 class="h">Selected work</h2>
+    <div class="section-intro">
+      <p>
+        Thirteen years across logistics, fitness, ad tech and pet food. Same
+        job every time: make the backend the least interesting part of the
+        product.
+      </p>
+      <a class="pill outline" href="https://www.linkedin.com/in/jaychoo">full history on linkedin →</a>
     </div>
+    <ol class="roles">
+      <li class="role">
+        <span class="code-label">W001 /</span>
+        <span class="role-name">Ollie</span>
+        <p class="role-desc">DTC pet food company. Senior Software Engineer, promoted to Principal in 2025.</p>
+        <span class="role-meta">2022 – present · Principal Eng</span>
+      </li>
+      <li class="role">
+        <span class="code-label">W002 /</span>
+        <span class="role-name">ARTA Shipping</span>
+        <p class="role-desc">Fine-art shipping and logistics startup. Senior Software Engineer, New York.</p>
+        <span class="role-meta">2018 – 2022 · Senior Eng</span>
+      </li>
+      <li class="role">
+        <span class="code-label">W003 /</span>
+        <span class="role-name">AV&amp;C</span>
+        <p class="role-desc">Experience design studio building software for branded interactive installations.</p>
+        <span class="role-meta">2016 – 2018 · Software Dev</span>
+      </li>
+      <li class="role">
+        <span class="code-label">W004 /</span>
+        <span class="role-name">ClassPass</span>
+        <p class="role-desc">Fitness class booking marketplace. Senior Data Engineer, promoted to Principal Engineer.</p>
+        <span class="role-meta">2014 – 2016 · Principal Eng</span>
+      </li>
+      <li class="role">
+        <span class="code-label">W005 /</span>
+        <span class="role-name">Vibrant Media</span>
+        <p class="role-desc">In-text contextual advertising platform, greater New York City area.</p>
+        <span class="role-meta">2013 – 2014 · Software Eng</span>
+      </li>
+    </ol>
   </section>
 
-  <section class="block" id="work">
-    <div class="wrap">
-      <p class="label"><span class="idx">02</span> work</p>
-
-      <div class="proj">
-        <div class="proj-name">Ollie</div>
-        <div class="proj-meta">2022 – present · Principal Eng</div>
-        <p class="proj-desc">DTC pet food company. Senior Software Engineer, promoted to Principal in 2025.</p>
+  <div class="wrap">
+    <section class="grid panel raised" id="contact">
+      <span class="code-label">A003 /&nbsp; contact</span>
+      <h2 class="display">Say<br>hello.</h2>
+      <p>LinkedIn for work, GitHub for code. Either one reaches me.</p>
+      <div class="blocks">
+        <a class="block-cta" href="https://www.linkedin.com/in/jaychoo"><span>linkedin</span><span aria-hidden="true">↗</span></a>
+        <a class="block-cta teal" href="https://github.com/jaychoo"><span>github</span><span aria-hidden="true">↗</span></a>
       </div>
-
-      <div class="proj">
-        <div class="proj-name">ARTA Shipping</div>
-        <div class="proj-meta">2018 – 2022 · Senior Eng</div>
-        <p class="proj-desc">Fine-art shipping and logistics startup. Senior Software Engineer, New York.</p>
-      </div>
-
-      <div class="proj">
-        <div class="proj-name">AV&amp;C</div>
-        <div class="proj-meta">2016 – 2018 · Software Dev</div>
-        <p class="proj-desc">Experience design studio building software for branded interactive installations.</p>
-      </div>
-
-      <div class="proj">
-        <div class="proj-name">ClassPass</div>
-        <div class="proj-meta">2014 – 2016 · Principal Eng</div>
-        <p class="proj-desc">Fitness class booking marketplace. Senior Data Engineer, promoted to Principal Engineer.</p>
-      </div>
-
-      <div class="proj">
-        <div class="proj-name">Vibrant Media</div>
-        <div class="proj-meta">2013 – 2014 · Software Eng</div>
-        <p class="proj-desc">In-text contextual advertising platform, greater New York City area.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="block" id="contact">
-    <div class="wrap">
-      <p class="label"><span class="idx">03</span> contact</p>
-      <p class="body-text">
-        Reach out on LinkedIn, or find me on GitHub — links below.
-      </p>
-    </div>
-  </section>
+    </section>
+  </div>
 </main>
 
 <footer>
   <div class="wrap foot-row">
-    <div class="foot-links">
-      <a href="https://github.com/jaychoo">github</a>
-      <span class="sep">·</span>
-      <a href="https://www.linkedin.com/in/jaychoo">linkedin</a>
-    </div>
+    <span class="code-label">jay choo · brooklyn, ny</span>
     <p class="foot-note">no images, no icons — just text, set well.</p>
   </div>
 </footer>
